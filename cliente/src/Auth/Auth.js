@@ -13,7 +13,7 @@ export default class Auth {
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience:AUTH_CONFIG.apiURL, //en el index.js del servidor tiene que ser idem que el apiUrl del auth0-variables
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'read: productos'
   });
 
   constructor() {
