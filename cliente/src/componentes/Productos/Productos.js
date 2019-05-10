@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Producto from '../Producto/Producto';
 import Buscador from '../Buscador/Buscador';
 import './Productos.css';
-
+import axios from 'axios';
 class Productos extends Component {
      state = {
           productos : [],
@@ -14,7 +14,15 @@ class Productos extends Component {
      }
 
      queryAPI = () =>{
-          console.log(this.props.auth.isAuthenticated());
+          //console.log(this.props.auth.isAuthenticated());
+          const {getAccessToken} = this.props.auth;
+          //permite ganar autorizacion con un token valido en auth0
+          const headers = {'Authorization': `Bearer ${getAccessToken()}`}; // 
+          //puerto + endpoint protegido.
+          const url = 'http://localhost:5000/productos';
+
+          return axios.get(url, {headers})
+               .then(respuesta => console.log(respuesta.data));
      }
      
      login = () => {
