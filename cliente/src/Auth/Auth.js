@@ -13,7 +13,7 @@ export default class Auth {
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience:AUTH_CONFIG.apiURL, //en el index.js del servidor tiene que ser idem que el apiUrl del auth0-variables
     responseType: 'token id_token',
-    scope: 'read: productos'
+    scope: 'read:productos'
   });
 
   constructor() {
@@ -43,7 +43,7 @@ export default class Auth {
   }
 
   getAccessToken() {
-    const accessToken = localStorage.getItems('access_token');
+    const accessToken = localStorage.getItem('access_token');
     if(!accessToken) {
       return new Error('generar el token');
     }
