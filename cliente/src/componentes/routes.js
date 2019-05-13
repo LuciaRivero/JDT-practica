@@ -32,7 +32,7 @@ export const makeMainRoutes = () => {
             <Productos
                 auth={auth} {...props}
             />
-      ) } />
+          ) } />
 
           <Route exact path="/nosotros" component={Nosotros} />
           <Route exact path="/contacto" component={Contacto} />

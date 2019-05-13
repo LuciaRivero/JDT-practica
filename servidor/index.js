@@ -37,7 +37,7 @@ const jwtCheck = jwt({
 const checkScopes = jwtAuthz(['read:productos']);
 //endpoint
 
-app.get('/productos', jwtCheck, checkScopes, (req,res) => {
+app.get('/productos', (req,res) => {
     //si eliminamos el (jwtCheck, checkScopes) el endpoint no tiene seguridad y se puede acceder sin el token
   let productos = [
     {

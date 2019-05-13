@@ -1,6 +1,7 @@
 import history from '../history';
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
+import { access } from 'fs';
 
 export default class Auth {
   accessToken;
@@ -34,6 +35,7 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        history.replace('/productos');
       } else if (err) {
         history.replace('/productos');
         console.log(err);
@@ -45,9 +47,9 @@ export default class Auth {
   getAccessToken() {
     const accessToken = localStorage.getItem('access_token');
     if(!accessToken) {
-      return new Error(Error,'generar el token');
+      return new Error(Error,'Hubo un maldito error al generar el token');
     }
-    return this.accessToken;
+    return accessToken;
   }
 
   getIdToken() {
@@ -60,7 +62,11 @@ export default class Auth {
 
     // Set the time that the access token will expire at
     let expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
-    this.accessToken = authResult.accessToken;
+
+    localStorage.setItem('access_token', authResult.accessToken);
+    /*localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_At', expiresAt);*/
+    /*this.accessToken = authResult.accessToken;*/
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
 

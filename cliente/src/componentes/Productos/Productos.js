@@ -11,10 +11,11 @@ class Productos extends Component {
 
      componentWillMount() {
           this.queryAPI();
+          console.log(this.state);
      }
 
      queryAPI = () =>{
-          //console.log(this.props.auth.isAuthenticated());
+          console.log(this.props.auth.isAuthenticated());
           const {getAccessToken} = this.props.auth;
           //permite ganar autorizacion con un token valido en auth0
           const headers = {'Authorization':`Bearer ${getAccessToken()}`};
