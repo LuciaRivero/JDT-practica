@@ -17,30 +17,38 @@ class Productos extends Component {
           //console.log(this.props.auth.isAuthenticated());
           const {getAccessToken} = this.props.auth;
           //permite ganar autorizacion con un token valido en auth0
-          const headers = {'Authorization': `Bearer ${getAccessToken()}`}; // 
+          const headers = {'Authorization':`Bearer ${getAccessToken()}`};
           //puerto + endpoint protegido.
           const url = 'http://localhost:5000/productos';
 
           return axios.get(url, {headers})
-               .then(respuesta => console.log(respuesta.data));
+               .then(respuesta => this.setState({productos: respuesta.data}));
      }
-     
+
      login = () => {
           this.props.auth.login();
      }
 
-     render() { 
+     render() {
           const {isAuthenticated} = this.props.auth;
-          return ( 
+          return (
                <div className="productos">
-                    <h2>Nuestros Productos</h2>
-                    <Buscador
-                        busqueda={this.props.busquedaProducto}/>
                         {isAuthenticated() && (
-                             <p>Estas Logueado</p>
+                          <React.Fragment>
+                             <h2> Nuestros Productos </h2>
+                             <Buscador
+                                busqueda={this.props.busquedaProducto}/>
+                            <ul className="lista-productos">
+                                {Object.keys(this.state.productos).map(producto => {
+                                  <Producto
+                                    informacion={this.state.productos[producto]}
+                                    key={producto}/>
+                                })}
+                            </ul>
+                          </React.Fragment>
                         )}
-                    <ul className="lista-productos"></ul>
-                    {!isAuthenticated() && (<div className="contenedor-boton"> 
+
+                    {!isAuthenticated() && (<div className="contenedor-boton">
                          <p>Para ver debes estar logueado</p>
                          <a className="boton" onClick={this.login}> Iniciar Sesion</a>
                     </div>)}
@@ -48,18 +56,5 @@ class Productos extends Component {
            )
      }
 }
- 
+
 export default Productos;
-
-
-/**
- * 
- * {Object.keys(this.props.productos).map(producto => (
-     <Producto
-          informacion={this.props.productos[producto]}
-          key={producto}
-     />
-)) }
- */
-
-

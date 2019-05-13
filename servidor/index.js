@@ -34,7 +34,7 @@ const jwtCheck = jwt({
 
 //revisamos y validamos el scope
 
-const checkScopes = jwtAuthz(['read: productos']);
+const checkScopes = jwtAuthz(['read:productos']);
 //endpoint
 
 app.get('/productos', jwtCheck, checkScopes, (req,res) => {

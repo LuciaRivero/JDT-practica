@@ -45,10 +45,9 @@ export default class Auth {
   getAccessToken() {
     const accessToken = localStorage.getItem('access_token');
     if(!accessToken) {
-      return new Error('generar el token');
+      return new Error(Error,'generar el token');
     }
     return this.accessToken;
-    //return this.accessToken;
   }
 
   getIdToken() {
