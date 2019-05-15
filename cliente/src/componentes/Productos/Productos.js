@@ -19,6 +19,7 @@ class Productos extends Component {
           const {getAccessToken} = this.props.auth;
           //permite ganar autorizacion con un token valido en auth0
           const headers = {'Authorization':`Bearer ${getAccessToken()}`};
+          console.log(headers);
           //puerto + endpoint protegido.
           const url = 'http://localhost:5000/productos';
 
